@@ -1,3 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+
+def file_list(request):
+    pass
+
+
+def download_file(request):
+    pass
