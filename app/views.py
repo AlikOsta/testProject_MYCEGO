@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
 from .services import YaDiskAPI
 
 
@@ -18,4 +19,11 @@ def file_list(request):
 
 
 def download_file(request):
-    pass
+    public_key = request.GET.get("public_key", "")
+    path = request.GET.get("path", "")
+
+    if public_key and path:
+        download_url = YaDiskAPI.download_file(public_key, path)
+        return HttpResponseRedirect(download_url)
+    
+    return HttpResponse("Invalid request", status=400)

@@ -16,7 +16,7 @@
         {% for file in files %}
             <li>
                 {{ file.name }} ({{ file.type }})
-                <a href="" target="_blank">Скачать</a>
+                <a href="{% url 'app:download_file' %}?public_key={{ public_key }}&path={{ file.path }}" target="_blank">Скачать</a>
             </li>
         {% endfor %}
     </ul>
