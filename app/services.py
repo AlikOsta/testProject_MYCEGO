@@ -18,15 +18,20 @@ class YaDiskAPI:
         Returns: List[Dict]: Список файлов с их метаданными
         """
 
-        params={
-            "public_key": public_key
-            }
+        try:
+            params={
+                "public_key": public_key
+                }
 
-        response = requests.get(YaDiskAPI.BASE_URL, params)
-        response.raise_for_status()
-        data = response.json()
-        items = data.get("_embedded", {}).get("items", [])
-        return items
+            response = requests.get(YaDiskAPI.BASE_URL, params)
+            response.raise_for_status()
+            data = response.json()
+            items = data.get("_embedded", {}).get("items", [])
+            return items
+        
+        except Exception as e:
+            print(f"Ошибка: {e}")
+            return []
     
     @staticmethod
     def download_file(public_key: str, path: str) -> str:
@@ -37,14 +42,18 @@ class YaDiskAPI:
             path (str): Путь к файлу
         Returns: str: URL для скачивания файла
         """
+        try:
+            params={
+                "public_key": public_key, 
+                "path": path
+                }
 
-        params={
-            "public_key": public_key, 
-            "path": path
-            }
-
-        response = requests.get(f"{YaDiskAPI.BASE_URL}/download", params)
-        response.raise_for_status()
-        download_url = response.json().get("href")
+            response = requests.get(f"{YaDiskAPI.BASE_URL}/download", params)
+            response.raise_for_status()
+            download_url = response.json().get("href")
+            
+            return download_url
         
-        return download_url
+        except Exception as e:
+            print(f"Ошибка: {e}")
+            return ""

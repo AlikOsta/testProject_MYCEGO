@@ -16,16 +16,20 @@ def file_list(request):
     """
 
     public_key = request.GET.get('public_key', '')
-    files = []
-    if public_key:
-        files = YaDiskAPI.get_file(public_key)
+    try:
+        files = []
+        if public_key:
+            files = YaDiskAPI.get_file(public_key)
 
-    context = {
-        'files': files,
-        'public_key': public_key,
-    }
+        context = {
+            'files': files,
+            'public_key': public_key,
+        }
 
-    return render(request, 'app/file_list.html', context)
+        return render(request, 'app/file_list.html', context)
+    
+    except Exception as e:
+        return render(request, 'app/file_list.html', {'error': str(e)})
 
 
 def download_file(request) -> HttpResponse:
@@ -47,8 +51,11 @@ def download_file(request) -> HttpResponse:
     public_key = request.GET.get("public_key", "")
     path = request.GET.get("path", "")
 
-    if public_key and path:
-        download_url = YaDiskAPI.download_file(public_key, path)
-        return HttpResponseRedirect(download_url)
+    try:
+        if public_key and path:
+            download_url = YaDiskAPI.download_file(public_key, path)
+            return HttpResponseRedirect(download_url)
+        
+    except Exception as e:
+        return render(request, 'app/file_list.html', {'error': str(e)})
     
-    return HttpResponse("Invalid request", status=400)
