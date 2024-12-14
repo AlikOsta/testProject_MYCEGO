@@ -14,7 +14,7 @@ def file_list(request):
         'public_key': public_key,
     }
 
-    return render(request, 'file_list.html', context)
+    return render(request, 'app/file_list.html', context)
 
 
 def download_file(request):
