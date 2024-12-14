@@ -26,21 +26,30 @@ app/
 ## Установка
 
 1. Клонируйте репозиторий:
-bash
-git clone https://github.com/your-username/yandex-disk-explorer.git
-cd yandex-disk-explorer
+```bash
 
-2. Создайте виртуальное окружение и установите зависимости:
+git clone https://github.com/your-username/yandex-disk-explorer.git
+
+cd yandex-disk-explorer
+```
+
+3. Создайте виртуальное окружение и установите зависимости:
+```
 python -m venv venv
 source venv/bin/activate  # для Linux/Mac
 venv\Scripts\activate     # для Windows
 pip install -r requirements.txt
+```
 
-3. Примените миграции:
+4. Примените миграции:
+```
 python manage.py migrate
+```
 
-4. Запустите сервер:
+6. Запустите сервер:
+```
 python manage.py runserver
+```
 
 ## Структура проекта
 # services.py
